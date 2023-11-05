@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+
+  application:
+    hostname: ${APPLICATION}
+    container_name: ${APPLICATION}
+    build: .
+    restart: always
+    ports:
+      - "${APPLICATION_PORT}:${APPLICATION_PORT}"
+    environment:
+      JAVA_OPTS: |
+        -Dspring.profiles.active=docker
+        -Dserver.port=${APPLICATION_PORT}
+        -Dmanagement.zipkin.tracing.endpoint=http://jaeger:9411/api/v2/spans
+
+networks:
+  default:
+    external: true
+    name: ${DOCKER_NETWORK}

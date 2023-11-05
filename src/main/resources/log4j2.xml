@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration>
+
+  <Properties>
+    <Property name="application">@project.artifactId@</Property>
+    <Property name="version">@project.version@</Property>
+    <Property name="host">$${env:HOST:-unknown}</Property>
+    <Property name="appender">${sys:logging.appender.active:-plain}</Property>
+    <Property name="rootLogLevel">${sys:logging.appender.root.level:-error}</Property>
+    <Property name="applicationLogLevel">${sys:logging.appender.application.level:-info}</Property>
+  </Properties>
+
+  <Appenders>
+    <Console name="plain" target="SYSTEM_OUT">
+      <PatternLayout
+        pattern="%date{ISO8601} [${application}] %-5level [%thread] %class{1.}.%method:%line - %msg%n%throwable"/>
+    </Console>
+
+    <Console name="json" target="SYSTEM_OUT">
+      <JsonLayout complete="false" compact="true" eventEol="true" stacktraceAsString="true">
+        <KeyValuePair key="timestamp" value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSZ}"/>
+        <KeyValuePair key="host" value="${host}"/>
+        <KeyValuePair key="application" value="${application}"/>
+        <KeyValuePair key="version" value="${version}"/>
+      </JsonLayout>
+    </Console>
+  </Appenders>
+
+  <Loggers>
+    <Root level="${rootLogLevel}">
+      <AppenderRef ref="${appender}"/>
+    </Root>
+
+    <Logger name="@project.groupId@" level="${applicationLogLevel}" additivity="false">
+      <AppenderRef ref="${appender}"/>
+    </Logger>
+  </Loggers>
+
+</Configuration>

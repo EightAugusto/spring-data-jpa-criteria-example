@@ -1,0 +1,16 @@
+management:
+  zipkin.tracing.endpoint: http://localhost:9411/api/v2/spans
+  endpoint:
+    health.enabled: true
+    prometheus.enabled: true
+    loggers.enabled: true
+  endpoints:
+    enabled-by-default: false
+    web.exposure.include: health,loggers,prometheus
+
+spring:
+  datasource.url: jdbc:h2:mem:spring_data_jpa_criteria_example
+  liquibase.enabled: true
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: false

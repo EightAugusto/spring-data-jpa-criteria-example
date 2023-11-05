@@ -1,0 +1,4 @@
+spring:
+  liquibase.enabled: false
+  jpa.defer-datasource-initialization: true
+  sql.init.mode: never

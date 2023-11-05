@@ -1,0 +1,4 @@
+spring:
+  application.name: @project.artifactId@
+  cloud.config.uri: http://spring-cloud-config-server:8888
+  profiles.active: local
